@@ -1,2 +1,2 @@
-yarn install
-yarn start
+pnpm install
+pnpm start
