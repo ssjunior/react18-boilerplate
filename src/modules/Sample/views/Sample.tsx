@@ -1,28 +1,31 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { Card, crud, Flex, Image, Spinner } from "tomato";
+import { Busy, Card, crud, Flex, Image, Spinner } from "tomato";
+
+import { animated } from "tomato/css/app.css";
+
+export const Edit = () => {
+  return <div>Edit</div>;
+};
 
 const Sprites = () => {
   const obj = useSelector((state) => state["sample"]).obj;
 
-  if (!obj) return <Spinner />;
+  if (!obj) return null; // <Spinner />;
 
   return (
     <>
+      <Busy />
       {obj &&
         Object.values(obj.sprites.versions["generation-i"]["red-blue"]).map(
           (sprite, index) => (
-            <Card key={index}>
-              <Flex sx={{ alignItems: "center" }}>
+            <Card mt="1" key={index}>
+              <Flex style={{ height: "fit-content", alignItems: "center" }}>
                 <Image
+                  className={animated}
                   src={sprite}
-                  sx={{
-                    // maxWidth: "80px",
-                    // width: "80px",
-                    minHeight: "5rem",
-                    mr: 3,
-                  }}
+                  style={{ maxWidth: "80px", width: "80px", mr: 3 }}
                 />
                 <div>Name</div>
               </Flex>
@@ -34,17 +37,16 @@ const Sprites = () => {
 };
 
 export const List = () => {
-  const loader = ({ response, state }) => {
-    state.obj = response;
-    return state;
+  const loader = ({ response }) => {
+    return response;
   };
 
   useEffect(
     () =>
-      crud.get({
-        includeCredentials: false,
+      crud.getOne({
         slice: "sample",
-        url: "https://pokeapi.co/api/v2/pokemon/bulbasaur",
+        includeCredentials: false,
+        url: "https://pokeapi.co/api/v2/pokemon",
         id: "bulbasaur",
         loader,
       }),

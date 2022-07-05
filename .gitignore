@@ -4,6 +4,7 @@ build
 node_modules
 .yarn*
 yarn*
+pnpm-lock.yaml
 
 !/.yarn/*
 !/.yarn/patches

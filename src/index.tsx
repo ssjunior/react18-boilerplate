@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 
 import { getStates, initStore } from "tomato";
 
-import App from "./App";
+import { App } from "./App";
 import MODULES from "./modules";
 
 // Inicialização do estado (redux)
@@ -13,7 +13,7 @@ const customStates = {};
 const state = { ...modulesState, ...customStates };
 const STORE = initStore({ state });
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("app")).render(
   <Provider store={STORE}>
     <BrowserRouter>
       <App />
